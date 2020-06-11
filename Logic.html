@@ -1,0 +1,247 @@
+
+<html>
+<head>
+<style>
+
+.container{
+height:500px;
+width:1000px;
+position:absolute;
+top:30%;
+left:20%;
+transfrom:translate(-50%) translate(-50%);
+background:gray;
+padding:20px;
+box-shadow:0 0 8px 3px #fff;
+}
+
+.title{
+padding-top:20px;
+text-align:center;
+font-size:36px;
+text-transform:uppercase;
+color:#08038C;
+}
+
+.question{
+padding:20px;
+font-size:22px;
+background:#08038C;
+border-radius:20px;
+margin:10px 0 10px 0;
+color:#f6f6f6;
+}
+
+.option{
+width:470px;
+display:inline-block;
+padding:10px 0 10 15px;
+vertical-align:middle;
+background:rgba(255,255,255,0.5);
+margin:10px 0 10px 10px;
+color:#000000;
+border-radius:20px;
+}
+
+.option:hover{
+background:#08038C;
+color:#f6f6f6;
+}
+
+.nxt {
+margin-left:830px;
+margin-top:80px;
+  background-color:#08038C; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+float:center;
+width:100px;
+height:75px;
+border-radius:20px;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button {
+margin-left:830px;
+margin-top:180px;
+  background-color:#08038C; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+float:center;
+width:100px;
+height:75px;
+border-radius:20px;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.result{
+height:100px;
+text-align:center;
+font-size:75px;
+}
+
+.option input:checked .option{
+background:#08038C;
+color:#000;
+
+}
+</style>
+<script >var questions=[{"question":"Q1.What is a class in java?",
+"option1":"blue print from which individual objects are created.",
+"option2":"A special data type.",
+"option3":"class is used to allocate memory to a data type.",
+"option4":"none of the above.",
+"answer":"1"},
+
+{"question":"Q2.Which Set class should be most popular in a multi-threading environment, considering performance constraint?",
+"option1":"HashSet",
+"option2":" ConcurrentSkipListSet",
+"option3":" LinkedHashSet",
+"option4":" CopyOnWriteArraySet",
+"answer":"2"},
+
+{"question":"Q3.Which of those doesn't have an index based structure?",
+"option1":"List",
+"option2":"Set",
+"option3":"Map",
+"option4":"None of the above",
+"answer":"2"},
+
+{"question":"Q4.java.util.Collections is a:",
+"option1":"Class",
+"option2":"Interface",
+"option3":"Object",
+"option4":"None of the above",
+"answer":"1"},
+
+{"question":"Q5.Which of those allows duplicate elements?",
+"option1":"Set",
+"option2":"List",
+"option3":"All",
+"option4":"None of the above",
+"answer":"2"},
+
+{"question":"Q6.What guarantees type-safety in a collection?",
+"option1":"Generics",
+"option2":"  Abstract classes",
+"option3":" Interfaces",
+"option4":" Collection",
+"answer":"1"},
+
+{"question":"Q7.HashSet internally uses?",
+"option1":"Set",
+"option2":"  HashMap",
+"option3":" List",
+"option4":" Collection",
+"answer":"1"},
+
+{"question":"Q8.Which of those is synchronized?",
+"option1":"ArrayList",
+"option2":" LinkedList",
+"option3":" Vector",
+"option4":"  None of these",
+"answer":"3"},
+
+{"question":"Q9.Which of those permits the storage of the many null values?",
+"option1":"Set",
+"option2":" List",
+"option3":"  None of these",
+"option4":"  All of these",
+"answer":"4"},
+
+{"question":"Q10.From Java five onwards, that one among these is suggested to replace Hashtable?",
+"option1":"ConcurrentHashMap",
+"option2":" HashMap",
+"option3":" ConcurrentHashtable",
+"option4":" None",
+"answer":"2"}
+];
+var opacity=0;
+var inid=0;
+var currentQuestion=0;
+var score=0;
+var totQuestion=questions.length;
+var nextButton=document.getElementById("nextButton");
+
+function loadQuestion(questionIndex)
+{
+inid=setInterval(cal,20);
+function cal()
+{
+var btn=document.getElementById("sb1");
+opacity=Number(window.getComputedStyle(btn).getPropertyValue("opacity"));
+if(opacity>0)
+{
+opacity=opacity-0.1;
+btn.style.opacity=opacity;
+}
+}
+
+document.getElementById("ques").innerHTML=questions[questionIndex].question;
+document.getElementById("opt1").innerHTML=questions[questionIndex].option1;
+document.getElementById("opt2").innerHTML=questions[questionIndex].option2;
+document.getElementById("opt3").innerHTML=questions[questionIndex].option3;
+document.getElementById("opt4").innerHTML=questions[questionIndex].option4;
+}
+
+function next()
+{
+var selectedOption=document.querySelector('input[type=radio]:checked');
+if(!selectedOption)
+{
+alert("Please select your answer");
+return;
+}
+
+//document.write(selectedOption.value);
+if(questions[currentQuestion].answer==selectedOption.value)
+score+=10;
+selectedOption.checked=false;
+
+currentQuestion++;
+if(currentQuestion==totQuestion)
+{if(score>=85)
+document.getElementById("quizContainer").innerHTML="<h1>WOHOOO!!!YOUR SCORE IS: "+score+"</h1>";
+else if(score>=75)
+document.getElementById("quizContainer").innerHTML="<h1>WELL DONE!!!! YOUR SCORE IS: "+score+"</h1>";
+else if(score>=40)
+document.getElementById("quizContainer").innerHTML="<h1>YOUR SCORE IS:  "+score+"</h1>";
+else
+document.getElementById("quizContainer").innerHTML="<h1>FAIL!! YOUR  SCORE IS: "+score+"</h1>";
+}
+loadQuestion(currentQuestion);
+}
+</script>
+</head>
+<body id="bdy"  style="background-color:black">
+<button id="sb1" onclick="loadQuestion(0)">START</button>
+
+<div id="quizContainer" class="container">
+
+<div class="title">JAVA Quiz</div>
+
+<div id="ques" class="question"></div>
+<label class="option"><input type="radio" name="option" value="1" /><span id="opt1"></span></label>
+
+<label class="option"><input type="radio" name="option" value="2" /><span id="opt2"></span></label>
+
+<label class="option"><input type="radio" name="option" value="3" /><span id="opt3"></span></label>
+
+<label class="option"><input type="radio" name="option" value="4" /><span id="opt4"></span></label>
+<button onclick="next()" class="nxt">NEXT</button>
+</div>
+<div id="result" class="container result" style="display:none;">
+</div>
+
+</body
+</html>
+
