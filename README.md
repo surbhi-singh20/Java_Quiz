@@ -1,1 +1,2 @@
-# Java_Quiz
+# Quiz game for java
+Written by Surbhi Singh.
